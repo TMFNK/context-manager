@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Context Manager - Setup Script
 # Creates the directory structure and initial files for the hybrid memory system
-# Version: 1.1 (Improved)
+# Version: 1.2 (Safety Update)
 
 set -e
 
@@ -17,8 +17,10 @@ mkdir -p "$MEMORY_DIR/knowledge/workflows"
 mkdir -p "$MEMORY_DIR/knowledge/preferences"
 mkdir -p "$MEMORY_DIR/knowledge/tools"
 mkdir -p "$MEMORY_DIR/logs"
+mkdir -p "$MEMORY_DIR/scratchpad" # Added: for temporary/high-velocity notes
 
-# Create master INDEX.md
+# Create master INDEX.md (Safety check added)
+if [ ! -f "$MEMORY_DIR/INDEX.md" ]; then
 cat > "$MEMORY_DIR/INDEX.md" << 'EOF'
 # Context Memory Index
 
@@ -31,6 +33,7 @@ Master index for all stored knowledge and conversation history.
 - `knowledge/workflows/`    — Procedures and best practices
 - `knowledge/preferences/`  — User preferences and project settings
 - `knowledge/tools/`        — Tool configurations and usage patterns
+- `scratchpad/`             — Temporary notes and high-velocity drafts
 
 ## Daily Logs
 - `logs/YYYY-MM-DD.md` — Conversation history (one file per day)
@@ -41,8 +44,13 @@ Use `grep -r "keyword" ./context-memory/` or the `colgrep` skill for semantic se
 ---
 *Initialized with context-manager skill — $(date '+%Y-%m-%d')*
 EOF
+echo "✅ Created INDEX.md"
+else
+echo "⚠️  INDEX.md already exists. Skipping to prevent overwriting."
+fi
 
-# Create knowledge base README
+# Create knowledge base README (Safety check added)
+if [ ! -f "$MEMORY_DIR/knowledge/README.md" ]; then
 cat > "$MEMORY_DIR/knowledge/README.md" << 'EOF'
 # Knowledge Base
 
@@ -65,10 +73,12 @@ Follow the templates provided in **SKILL.md** for consistent formatting.
 
 Memory system ready.
 EOF
+echo "✅ Created knowledge/README.md"
+else
+echo "⚠️  knowledge/README.md already exists. Skipping."
+fi
 
-echo "✅ Directory structure created at: $MEMORY_DIR/"
-echo "✅ Created INDEX.md and knowledge/README.md"
+echo "✅ Directory structure updated at: $MEMORY_DIR/"
 echo ""
 echo "Memory system is now ready!"
 echo "Next step: Use the 'context-manager' skill to store and retrieve knowledge."
-echo "Tip: Run 'ls $MEMORY_DIR' to explore the structure."

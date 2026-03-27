@@ -8,17 +8,16 @@
 ## What It Does
 
 AI agents forget everything between sessions and accumulate tokens fast in long
-conversations. `context-manager` solves both with a **3-layer memory architecture**:
+conversations. `context-manager` solves both with a **4-layer memory architecture**:
 
 | Layer      | Scope                | Storage              | Purpose                      |
 | ---------- | -------------------- | -------------------- | ---------------------------- |
 | Short-term | Last 3–5 turns       | Context window       | Maintain conversational flow |
 | Mid-term   | Daily logs           | `logs/YYYY-MM-DD.md` | Full session history         |
 | Long-term  | Structured knowledge | `knowledge/` folders | Curated, reusable info       |
+| Buffer     | Working notes        | `scratchpad/`        | High-velocity drafts         |
 
 **Token savings: up to 89%** on targeted retrieval vs. loading full history.
-
----
 
 ## Installation
 
@@ -54,18 +53,18 @@ bash ../context-manager/setup.sh
 
 ## What `setup.sh` Creates
 
-```
+```markdown
 ./context-memory/
-├── INDEX.md                  # Master knowledge index
-├── knowledge/
-│   ├── README.md             # Usage guide
-│   ├── concepts/             # Abstract ideas, theories
-│   ├── technology/           # APIs, tools, technical specs
-│   ├── workflows/            # Procedures and processes
-│   ├── preferences/          # User preferences, project settings
-│   └── tools/                # Tool configurations
+├── INDEX.md # Master knowledge index
+├── scratchpad/ # Working drafts and temp notes
+├── knowledge/ # Long-term memory
+│ ├── concepts/ # Abstract ideas
+│ ├── technology/ # APIs, specs
+│ ├── workflows/ # Procedures
+│ ├── preferences/ # User settings
+│ └── tools/ # Tool configs
 └── logs/
-    └── YYYY-MM-DD.md         # Auto-dated daily logs (created at runtime)
+└── YYYY-MM-DD.md # Daily logs
 ```
 
 ---
