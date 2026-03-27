@@ -19,24 +19,24 @@ mkdir -p "$MEMORY_DIR/knowledge/tools"
 mkdir -p "$MEMORY_DIR/logs"
 
 # Create master INDEX.md
-cat > "$MEMORY_DIR/INDEX.md" << EOF
+cat > "$MEMORY_DIR/INDEX.md" << 'EOF'
 # Context Memory Index
 
 ## Overview
 Master index for all stored knowledge and conversation history.
 
 ## Knowledge Categories
-- \`knowledge/concepts/\`     — Abstract concepts and theories
-- \`knowledge/technology/\`   — APIs, libraries, tools, technical specs
-- \`knowledge/workflows/\`    — Procedures and best practices
-- \`knowledge/preferences/\`  — User preferences and project settings
-- \`knowledge/tools/\`        — Tool configurations and usage patterns
+- `knowledge/concepts/`     — Abstract concepts and theories
+- `knowledge/technology/`   — APIs, libraries, tools, technical specs
+- `knowledge/workflows/`    — Procedures and best practices
+- `knowledge/preferences/`  — User preferences and project settings
+- `knowledge/tools/`        — Tool configurations and usage patterns
 
 ## Daily Logs
-- \`logs/YYYY-MM-DD.md\` — Conversation history (one file per day)
+- `logs/YYYY-MM-DD.md` — Conversation history (one file per day)
 
 ## Quick Search
-Use \`grep -r "keyword" ./context-memory/\` or the \`colgrep\` skill for semantic search.
+Use `grep -r "keyword" ./context-memory/` or the `colgrep` skill for semantic search.
 
 ---
 *Initialized with context-manager skill — $(date '+%Y-%m-%d')*
