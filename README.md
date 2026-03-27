@@ -1,6 +1,6 @@
 # context-manager
 
-> A hybrid memory skill for [opencode](https://opencode.ai), with persistent knowledge storage
+> A hybrid memory skill for OpenCode, with persistent knowledge storage
 > and efficient context management to reduce token usage in long AI sessions.
 
 ---
@@ -27,7 +27,7 @@ conversations. `context-manager` solves both with a **3-layer memory architectur
 Copy `SKILL.md` into your opencode skills directory:
 
 ```bash
-curl -O https://raw.githubusercontent.com/YOUR_USERNAME/context-manager/main/SKILL.md
+curl -O https://raw.githubusercontent.com/TMFNK/context-manager/main/SKILL.md
 ```
 
 ### 2. Initialize memory in your project
@@ -35,7 +35,7 @@ curl -O https://raw.githubusercontent.com/YOUR_USERNAME/context-manager/main/SKI
 Run the setup script once per project to create the `./context-memory/` folder structure:
 
 ```bash
-curl -O https://raw.githubusercontent.com/YOUR_USERNAME/context-manager/main/setup.sh
+curl -O https://raw.githubusercontent.com/TMFNK/context-manager/main/SKILL.md
 chmod +x setup.sh
 ./setup.sh
 ```
@@ -43,12 +43,12 @@ chmod +x setup.sh
 Or clone the repo and run from there:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/context-manager.git
+git clone https://github.com/TMFNK/context-manager.git
 cd your-project
 bash ../context-manager/setup.sh
 ```
 
-> The script is safe to re-run — it won't overwrite existing knowledge files.
+> The script is safe to re-run, as it won't overwrite existing knowledge files.
 
 ---
 
@@ -78,7 +78,7 @@ cat > ./context-memory/knowledge/technology/example-api.md << 'EOF'
 # Example API
 
 ## Metadata
-- Learned: 2026-03-27
+- Learned: YYYY-MM-DD
 - Importance: ⭐⭐⭐⭐
 - Tags: #api #integration
 
@@ -121,7 +121,7 @@ tail -30 ./context-memory/logs/$(date '+%Y-%m-%d').md
 | Full conversation history | 25,000+ | Costly in long sessions |
 | Last 5 turns only | ~2,500 | Loses earlier context |
 | Targeted retrieval | ~500 | Best for specific questions |
-| **This skill (typical)** | **~2,700** | **~89% savings vs. full history** |
+| **This skill (typical)** | **~2,700** | **~89% savings vs. full history** (estimated, depends on usage) |
 
 ---
 
