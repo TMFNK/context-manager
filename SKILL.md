@@ -146,13 +146,12 @@ Detailed explanation...
 ## Integration
 
 Works great together with:
-
-colgrep — semantic search across memory
-spreadsheet — structured data tables
-humanizer — polishing final outputs
+- colgrep: semantic search across memory
+- spreadsheet: structured data tables
+- humanizer: polishing final outputs
 
 ## Troubleshooting
 
-Knowledge not found? → Check INDEX.md and use grep / colgrep
-Storage too large? → Weekly review + consolidate old logs
-Dates wrong? → Make sure your system date is correct
+- Knowledge not found? → Check INDEX.md and use grep / colgrep
+- Storage too large? → Weekly review + consolidate old logs
+- Dates wrong? → Make sure your system date is correct
