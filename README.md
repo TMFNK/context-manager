@@ -125,9 +125,9 @@ tail -30 ./context-memory/logs/$(date '+%Y-%m-%d').md
 
 ---
 
-## Works Well With
+## Based on
 
-- **[colgrep](https://github.com/huangyixiang520-tech/colgrep)** — semantic search across memory files
+- **[memory-management-skill](https://github.com/huangyixing520-tech/memory-management-skill)** 
 
 ---
 
@@ -144,8 +144,7 @@ tail -30 ./context-memory/logs/$(date '+%Y-%m-%d').md
 ## Compatibility
 
 - ✅ opencode
-- 📄 License: 
-- 👤 Audience: General
+- 📄 License: GNU General Public License v3.0
 
 ---
 
