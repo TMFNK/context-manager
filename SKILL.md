@@ -10,227 +10,149 @@ metadata:
 
 # Context Manager Skill
 
-A file-based hybrid memory system that stores long-term knowledge and manages conversation context efficiently.
+A clean, file-based hybrid memory system that combines **long-term structured knowledge** with **daily conversation logs** to dramatically reduce token usage while preserving context.
 
 ## Problem
 
-Conversational AI suffers from:
-- **Token accumulation**: Context grows linearly with each turn
-- **Lost knowledge**: Important info forgotten across sessions
-- **Repeated relearning**: Same information requested multiple times
-- **Context limits**: Hitting window limits in long conversations
+- Token bloat from growing conversation history
+- Important knowledge gets lost between sessions
+- Repeated explanations waste tokens
+- Hitting context window limits in long projects
 
 ## Solution
 
-**3-layer memory architecture:**
+**3-Layer Memory Architecture:**
 
-| Layer | Scope | Storage | Purpose |
-|-------|-------|---------|---------|
-| Short-term | Last 3-5 turns | Context window | Maintain flow |
-| Mid-term | Daily logs | `logs/YYYY-MM-DD.md` | Full history |
-| Long-term | Structured knowledge | `knowledge/` folders | Curated info |
-
-## When to Use
-
-- User mentions important information to remember
-- User asks "what do you know about X" or "remember when we..."
-- Starting a new session - retrieve relevant past context
-- Learning new concepts, APIs, workflows
-- Noting user preferences or project-specific patterns
-- Summarizing to reduce token usage in long conversations
+| Layer       | Scope              | Storage                        | Purpose                          |
+|-------------|--------------------|--------------------------------|----------------------------------|
+| Short-term  | Last 3–5 turns     | Context window                 | Conversation flow                |
+| Mid-term    | Current day        | `logs/YYYY-MM-DD.md`           | Full daily history               |
+| Long-term   | Permanent knowledge| `knowledge/` (structured)      | Curated, searchable insights     |
 
 ## Storage Location
 
-**Project-relative**: `./context-memory/` in the current project directory.
+All files are stored relative to your project:
 
 ```
 ./context-memory/
-├── knowledge/           # Long-term structured knowledge
-│   ├── concepts/        # Abstract concepts, theories
-│   ├── technology/      # APIs, tools, technical specs
-│   ├── workflows/      # Procedures, processes
-│   ├── preferences/    # User preferences, project settings
-│   └── tools/          # Tool configurations
-├── logs/               # Daily conversation logs
-│   └── YYYY-MM-DD.md   # Auto-dated daily logs
-└── INDEX.md            # Master knowledge index
+├── knowledge/                  # Long-term structured knowledge
+│   ├── concepts/
+│   ├── technology/
+│   ├── workflows/
+│   ├── preferences/
+│   └── tools/
+├── logs/                       # Daily conversation logs
+│   └── YYYY-MM-DD.md
+└── INDEX.md                    # Master index
+```
+
+## Installation
+
+Run the setup script once:
+
+```bash
+curl -O https://raw.githubusercontent.com/TMFNK/context-manager/main/setup.sh
+chmod +x setup.sh
+./setup.sh
+```
+Or with a custom path:
+
+```bash
+./setup.sh ./my-memory-folder
 ```
 
 ## Workflow
-
-### 1. Learning New Knowledge
-
-When user shares important information:
-
+### 1. Storing New Knowledge
 ```bash
-# Create knowledge file in appropriate category
-cat > ./context-memory/knowledge/technology/api-name.md << 'EOF'
-# API Name
+# Example: Store technical knowledge
+cat > ./context-memory/knowledge/technology/openai-api.md << 'EOF'
+# OpenAI API Best Practices
 
 ## Metadata
-- **Learned**: $(date '+%Y-%m-%d %H:%M')
-- **Source**: Conversation with user
+- **Learned**: $(date '+%Y-%m-%d')
+- **Source**: User conversation
 - **Importance**: ⭐⭐⭐⭐
-- **Tags**: #api #integration
+- **Tags**: #api #llm #best-practices
 
 ## Summary
-Brief description of what was learned.
+Key guidelines for efficient API usage...
 
-## Key Details
-- Point 1
-- Point 2
+## Details
+- Use streaming when possible
+- ...
 
 ## Related
-- [[linked-knowledge-file]]
+- [[token-optimization]]
 EOF
 ```
 
 ### 2. Retrieving Knowledge
 
 ```bash
-# Search across all knowledge
-grep -r "keyword" ./context-memory/knowledge/
-colgrep "search query" ./context-memory/
+# Semantic or keyword search
+colgrep "authentication" ./context-memory/
+grep -r "token optimization" ./context-memory/knowledge/
 
-# Read specific file
-read ./context-memory/knowledge/technology/api-name.md
+# Read a file
+cat ./context-memory/knowledge/technology/openai-api.md
 ```
 
-### 3. Daily Logging
+###3. Daily Logging (optional manual)
 
 ```bash
-# Append to today's log
-echo "## $(date '+%H:%M') Topic" >> ./context-memory/logs/$(date '+%Y-%m-%d').md
-echo "- User: [summary]" >> ./context-memory/logs/$(date '+%Y-%m-%d').md
-echo "- AI: [response summary]" >> ./context-memory/logs/$(date '+%Y-%m-%d').md
-```
-
-### 4. Context Optimization (Token Savings)
-
-Instead of loading full history, retrieve relevant snippets:
-
-```bash
-# Get recent context efficiently
-tail -50 ./context-memory/logs/$(date '+%Y-%m-%d').md
-
-# Summarize old logs
-head -20 ./context-memory/logs/2026-01-15.md
+echo "## $$   (date '+%H:%M') - Topic" >> ./context-memory/logs/   $$(date '+%Y-%m-%d').md
+echo "- User: ..." >> ./context-memory/logs/$(date '+%Y-%m-%d').md
 ```
 
 ## File Templates
 
-### Knowledge Entry
+(Kept clean and improved — same high-quality templates as before, with better placeholders)
+
+### Knowledge Entry Template
 
 ```markdown
-# [Title]
+# [Clear Title]
 
 ## Metadata
-- **Learned**: YYYY-MM-DD HH:MM
-- **Source**: [conversation/external]
-- **Importance**: ⭐⭐ (1-5 stars)
+- **Learned**: YYYY-MM-DD
+- **Source**: [conversation / documentation]
+- **Importance**: ⭐⭐⭐ (1–5)
 - **Tags**: #tag1 #tag2
-- **Updated**: YYYY-MM-DD HH:MM
+- **Updated**: YYYY-MM-DD
 
 ## Summary
-[50-100 word overview]
+Concise 1–3 sentence overview.
 
 ## Details
-[Detailed content]
+Detailed explanation...
 
 ## Key Takeaways
-- Point 1
-- Point 2
+- Bullet 1
+- Bullet 2
 
 ## Related
-- [[related-file]]
+- [[related-file.md]]
 ```
 
-### Daily Log Entry
-
+## Daily Log Entry
 ```markdown
+
 ## HH:MM Topic
-- User: [message summary]
-- AI: [response summary]
-- Key points: [important insights]
+- **User**: Summary of user input
+- **AI**: Summary of response
+- **Key Points**: Important insights learned
 ```
-
-## Usage Examples
-
-### Storing User Preference
-```bash
-cat > ./context-memory/knowledge/preferences/user-coffee.md << 'EOF'
-# Coffee Preference
-
-## Metadata
-- **Learned**: 2026-03-27
-- **Importance**: ⭐⭐⭐⭐
-
-## Summary
-User prefers medium roast with oat milk, no sugar.
-
-## Details
-- Temperature: 65°C
-- Favorite shop: [shop name]
-EOF
-```
-
-### Retrieving Past Context
-```bash
-# Find all mentions of a topic
-grep -r "api" ./context-memory/knowledge/
-colgrep "authentication patterns" ./context-memory/
-```
-
-### Starting New Session
-```bash
-# Check for relevant knowledge
-ls ./context-memory/knowledge/
-read ./context-memory/INDEX.md
-tail -20 ./context-memory/logs/2026-03-26.md
-```
-
-## Token Optimization
-
-| Approach | Tokens | Use Case |
-|----------|--------|----------|
-| Full history | 25,000+ | When needed |
-| Last 5 turns | ~2,500 | Normal conversation |
-| Relevant retrieval | ~500 | Specific questions |
-| **With this system** | **~2,700** | **89% savings** |
-
-## Maintenance
-
-### Weekly
-- Review and consolidate duplicate entries
-- Update INDEX.md with new entries
-
-### Monthly
-- Archive or summarize old logs
-- Clean up outdated knowledge
-
-### As Needed
-- Update existing entries with new info
-- Add related links between concepts
 
 ## Integration
 
-Works with other skills:
-- **colgrep**: Semantic search across memory
-- **spreadsheet**: Store structured data
-- **humanizer**: Polish knowledge entries
+Works great together with:
+
+colgrep — semantic search across memory
+spreadsheet — structured data tables
+humanizer — polishing final outputs
 
 ## Troubleshooting
 
-**Can't find knowledge?**
-- Check INDEX.md for overview
-- Use `grep` or `colgrep` with keywords
-- Verify correct category folder
-
-**Storage growing too large?**
-- Run weekly consolidation
-- Summarize old logs
-- Archive inactive entries
-
-**Context not loading?**
-- Check `logs/YYYY-MM-DD.md` exists
-- Verify recent entries have summaries
+Knowledge not found? → Check INDEX.md and use grep / colgrep
+Storage too large? → Weekly review + consolidate old logs
+Dates wrong? → Make sure your system date is correct
