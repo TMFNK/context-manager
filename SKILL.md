@@ -1,8 +1,8 @@
 ---
 name: context-manager
 description: "Hybrid memory system for AI agents. Stores learned knowledge persistently and manages conversation context efficiently to reduce token usage. Use when: storing important information between sessions, retrieving previously learned concepts, maintaining user preferences, or optimizing token consumption in long conversations."
-license: MIT
-compatibility: opencode
+license: GNU General Public License v3.0
+compatibility: OpenCode
 metadata:
   audience: general
   use_case: knowledge management, context optimization
